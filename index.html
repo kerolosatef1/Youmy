@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&family=Montserrat:wght@700&family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&family=Montserrat:wght@500&family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/validator.js"></script>
+    <script type="text/javascript" src="js/API.js"></script>
+    <title>Yummy</title>
+    <style>
+    </style>
+</head>
+
+<body class=" bg-black">
+    <div id="loader" class="bg-black loader-bg">
+        <span class="loader"></span>
+    </div>
+    <div class="sidebar closed" id="sidebar">
+        <div class="nav-content">
+            <div class="nav-buttons">
+                <button type="button" onclick="html_handler.SerachInitialization()">Search</button>
+                <button type="button" onclick="api_fetcher.Getter.getAllMealsByCategory((data) => {html_handler.categoryHandler(data)})">Categories</button>
+                <button type="button" onclick="api_fetcher.Getter.getAreas((data) => {html_handler.AreaListHandler(data)})" >Area</button>
+                <button type="button" onclick="api_fetcher.Getter.getIngredients((data) => {html_handler.ingredientsHandler(data)})">Ingredients</button>
+                <button type="button" onclick="html_handler.ContactUsInitialization()" >Contact Us</button>
+            </div>
+            <div>
+                <div>
+                    <i class="fa-brands fa-facebook"></i>
+                    <i class="fa-brands fa-twitter"></i>
+                    <i class="fa-solid fa-globe"></i>
+                </div>
+                <p>Copyright Â© 2019 All Rights Reserved.</p>
+            </div>
+        </div>
+        <div class="nav-main">
+            <img alt="" src="images/logo.png" alt="logo">
+            <i id="sidebar-open-close-button" onclick="html_handler.handleSidebar()" class="fa-solid fa-bars"></i>
+            <div class="bottom-icons">
+                <i class="fa-solid fa-globe"></i>
+                <i class="fa-solid fa-share-nodes"></i>
+            </div>
+        </div>
+    </div>
+    <!--pg1-->
+    <section id="pg1" class="py-lg-5">
+        <div class="container d-flex m-auto">
+            <div class="row w-100" id="Page-content">
+            </div>
+        </div>
+    </section>
+
+    
+    
+    <script src="js/J-query.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+		const api_fetcher = new API_Fetcher()
+        const html_handler = new HtmlHandler('Page-content','loader',api_fetcher)
+        const validator =  new inputValidator("nameInput","emailInput","phoneInput","ageInput","passwordInput","repasswordInput")
+        const html_validator = new HtmlValidator(validator)
+        
+        api_fetcher.Getter.getAllMeals((data) => {
+            html_handler.allMealsHandler(data)
+        })
+    </script>
+</body>
+
+</html>
